@@ -1,0 +1,17 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org">
+
+<div>
+<h1>
+search page
+</h1>
+
+
+<tr th:each="movie: ${movies.results}">
+<div> Movie Title <td th:text="${movie.title}" /> </div>
+<div> Movie Id <td th:text="${movie.id}" /> </div>
+    
+    <!-- <td th:text="${movie}" /> -->
+</tr>
+</div>
+</html>
