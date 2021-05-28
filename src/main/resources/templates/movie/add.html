@@ -1,0 +1,14 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org">
+
+<div>
+add you favorite movies
+<form th:action="@{/movie/add}" method="post" >
+<div class="form-group">
+<label> Movie ID</label><input type="number" name="movieId" class="from-control">
+</div>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
