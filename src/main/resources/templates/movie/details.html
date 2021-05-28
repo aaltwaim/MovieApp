@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>favorites movie</title>
+</head>
+<body>
+<div th:text=${movie.name}> </div>
+<div th:text=${movie.movieId}> </div>
+<div th:text=${movie.poster}> </div>
+<div th:text=${movie.movieDescription}> </div>
+
+<!-- 	<table>
+		<tr>
+			<th>Movie Name</th>
+			<th>id</th>
+		</tr>
+		<tr th:each="movie: ${movies}">
+		<a th:href="@{/order/details(id=3)}">
+			<td th:text="${movie.name}"></td>
+			<td th:text="@{movie/details(id=${movie.id})}"></td>
+			<a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a>
+			<td><a th:href="@{details?{id}(id=${movie.id})}"><span th:text="${movie.name}"></span> </a></td>
+			th:text="${movie.id}"
+		</tr>
+</table> -->
+
+</body>
+</html>
