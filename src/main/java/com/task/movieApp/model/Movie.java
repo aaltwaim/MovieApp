@@ -29,7 +29,7 @@ public class Movie {
 	@Column(length = 100000)
 	private String movieDescription;
 	
-//	private String genres;
+	private String genres;
 	
 	@Column(name="createdAt", nullable = false, updatable = false)
 	@CreationTimestamp
@@ -79,13 +79,13 @@ public class Movie {
 		this.movieDescription = movieDescription;
 	}
 
-//	public String getGenres() {
-//		return genres;
-//	}
-//
-//	public void setGenres(String genres) {
-//		this.genres = genres;
-//	}
+	public String getGenres() {
+		return genres;
+	}
+
+	public void setGenres(String genres) {
+		this.genres = genres;
+	}
 
 	public LocalDateTime getCreateAt() {
 		return createAt;

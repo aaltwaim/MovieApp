@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -99,7 +100,7 @@ public class MovieController {
 	private MovieDao dao;
 	
 	@PostMapping("/movie/add")
-	public String addMovie(Movie movie) throws JsonMappingException, JsonProcessingException {
+	public ModelAndView addMovie(Movie movie) throws JsonMappingException, JsonProcessingException {
 		var favMovie = url+"/"+ movie.getMovieId()+api;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -109,6 +110,8 @@ public class MovieController {
 		System.out.println("result"+result.getBody());
 
 		System.out.println("name "+ movie.getName());
+		
+		//deserialize using ObjectMapper
 		ObjectMapper mapper = new ObjectMapper();
 		
 		JsonNode root = mapper.readTree(result.getBody());
@@ -116,18 +119,32 @@ public class MovieController {
 		JsonNode poster = root.path("poster_path");
 	
 		JsonNode overview = root.path("overview");
+		String gen ="";
 		
-		JsonNode genres = root.path("genres");
+//		JsonNode genres = root.path("genres").get(0).path("name");
+		for(int i=0; i< root.path("genres").size(); i++) {
+			System.out.println("geners"+ gen);
+//			System.out.println("geners"+ root.path("genres").get(i).path("name").asText());
+//			System.out.println("geners"+ movie.getGenres().toString());
+			 gen =gen.concat(root.path("genres").get(i).path("name").asText() + ", ");
+//			movie.setGenres(movie.getGenres().toString().concat(gen));
+			System.out.println("geners"+ gen);
+//			path("genres").get(i).path("name").asText()
+		}
+		
+		System.out.println("geners"+ root.path("genres").size());
 		
 
-		System.out.println("result "+title.asText() + poster+ genres+ overview);
+		System.out.println("result "+ movie.getGenres());
 		movie.setName(title.asText());
 		movie.setPoster("https://www.themoviedb.org/t/p/w1280"+poster.asText());
 		movie.setMovieDescription(overview.asText());
+		movie.setGenres(gen);
 
 		dao.save(movie);
 //		return "";
-		return "redirect:/movie/fav";
+		return new ModelAndView("redirect:/movie/fav");
+//		return new RedirectView("movie/fav");
 	}
 	
 	
