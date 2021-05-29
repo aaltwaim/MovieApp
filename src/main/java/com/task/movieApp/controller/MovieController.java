@@ -101,13 +101,15 @@ public class MovieController {
 	
 	@PostMapping("/movie/add")
 	public ModelAndView addMovie(Movie movie) throws JsonMappingException, JsonProcessingException {
+		System.out.println("heeeee");
 		var favMovie = url+"/"+ movie.getMovieId()+api;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		System.out.println("result"+entity);
+		try {
 		ResponseEntity<String> result = restTemplate.exchange(favMovie, HttpMethod.GET, entity, String.class);
-		
-		System.out.println("result"+result.getBody());
+//		System.out.println("result"+result.getStatusCodeValue());
 
 		System.out.println("name "+ movie.getName());
 		
@@ -124,27 +126,24 @@ public class MovieController {
 //		JsonNode genres = root.path("genres").get(0).path("name");
 		for(int i=0; i< root.path("genres").size(); i++) {
 			System.out.println("geners"+ gen);
-//			System.out.println("geners"+ root.path("genres").get(i).path("name").asText());
-//			System.out.println("geners"+ movie.getGenres().toString());
 			 gen =gen.concat(root.path("genres").get(i).path("name").asText() + ", ");
-//			movie.setGenres(movie.getGenres().toString().concat(gen));
 			System.out.println("geners"+ gen);
-//			path("genres").get(i).path("name").asText()
 		}
 		
-		System.out.println("geners"+ root.path("genres").size());
-		
-
-		System.out.println("result "+ movie.getGenres());
 		movie.setName(title.asText());
 		movie.setPoster("https://www.themoviedb.org/t/p/w1280"+poster.asText());
 		movie.setMovieDescription(overview.asText());
 		movie.setGenres(gen);
-
 		dao.save(movie);
-//		return "";
+		}catch(Exception e){
+			System.out.println("error movie does not exist"+e);
+			
+		}
+		
+
+
+		
 		return new ModelAndView("redirect:/movie/fav");
-//		return new RedirectView("movie/fav");
 	}
 	
 	
@@ -177,6 +176,12 @@ public class MovieController {
 		hc.setAppName(mv, env);
 		
 		return mv;
+		
+	}
+	@GetMapping("/movie/remove")
+	public ModelAndView removeFavMovie(@RequestParam int id) {
+		dao.deleteById(id);
+		return new ModelAndView("redirect:/movie/fav");
 		
 	}
 	

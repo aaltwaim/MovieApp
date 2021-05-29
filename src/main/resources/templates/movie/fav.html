@@ -9,15 +9,11 @@ xmlns:th="http://www.thymeleaf.org">
 	<table>
 		<tr>
 			<th>Movie Name</th>
-			<th>id</th>
+			<th>Remove</th>
 		</tr>
 		<tr th:each="movie: ${movies}">
-		<!-- <a th:href="@{/order/details(id=3)}"> -->
-			<td th:text="${movie.name}"></td>
-<!-- 			<td th:text="@{movie/details(id=${movie.id})}"></td> -->
-			<!-- <a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a> -->
 			<td><a th:href="@{details?id={id}(id=${movie.id})}"><span th:text="${movie.name}"></span> </a></td>
-			<!-- th:text="${movie.id}" -->
+			<td><a th:href="@{remove?id={id}(id=${movie.id})}">Remove</a></td>
 		</tr>
 </table>
 

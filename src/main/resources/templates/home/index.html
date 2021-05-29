@@ -1,25 +1,11 @@
-<!-- <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-xmlns:th="http://www.thymeleaf.org">
-  <head>
-  
-  </head>
-  <body>
-<div th:insert="fragments/header :: header"> 
-<div th:fragment="topbar">
-<div class="mainDiv">
-	<div>The home page of the movie App</div>
-</div>
-</div>
-</div>
-</body>
-</html> -->
+ <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="index">
 <a href="/movie/latest" th:href="@{/movie/latest}">Latest</a>
-<a href="/movie/add" th:href="@{/movie/add}">add</a>
+<a href="/movie/add" th:href="@{/movie/add}">Add</a>
+<a href="/movie/fav" th:href="@{/movie/fav}">Favorite</a>
 <form th:action="@{/movie/search}" >
 <!-- <input type="text" name="freeText" placeholder="Search"> -->
 <input type="text" name="freeText" placeholder="Search">

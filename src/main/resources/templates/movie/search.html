@@ -5,12 +5,24 @@ xmlns:th="http://www.thymeleaf.org">
 <h1>
 search page
 </h1>
-
-
-<tr th:each="movie: ${movies.results}">
-<div> Movie Title <td th:text="${movie.title}" /> </div>
-<div> Movie Id <td th:text="${movie.id}" /> </div>
-    
-</tr>
+<table>
+		<tr>
+			<th>Movie Name</th>
+			<th>Overview</th>
+		</tr>
+		<tr th:each="movie: ${movies.results}">
+		<td th:text="${movie.title}"></td>
+		<td th:text="${movie.overview}"></td>
+		<td>
+		
+		<form th:action="@{/movie/add}" method="post" >
+		<input type="number" name="movieId" th:value="${movie.id}" class="from-control">
+		<button type="submit" class="btn btn-primary">Add</button>
+		</form>
+		</td>
+		<!-- 	<td><a th:href="@{details?id={id}(id=${movie.id})}"><span th:text="${movie.name}"></span> </a></td>
+			<td><a th:href="@{remove?id={id}(id=${movie.id})}">Remove</a></td> -->
+		</tr>
+</table>
 </div>
 </html>
